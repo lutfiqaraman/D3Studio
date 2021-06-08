@@ -12,6 +12,11 @@ d3.json('data/buildings.json')
             d.height = Number(d.height);
         });
 
+        const yScale = d3
+            .scaleLinear()
+            .domain([0, 828])
+            .range([0, 400])
+
         const rects = svg
             .selectAll('rect')
             .data(chartData);
@@ -20,9 +25,9 @@ d3.json('data/buildings.json')
             .enter()
             .append('rect')
             .attr('x', (d, i) => (i * 60) + 10)
-            .attr('y', 0)
+            .attr('y', 10)
             .attr('width', 50)
-            .attr('height', (d) => d.height)
+            .attr('height', (d) => yScale(d.height))
             .attr('fill', () => 'grey')
     })
     .catch((err) => {
